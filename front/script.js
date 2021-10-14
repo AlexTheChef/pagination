@@ -61,6 +61,13 @@ window.onload = function() {
       let url = new URL(url_string);
       let page = url.searchParams.get("page");
       let limit = url.searchParams.get("limit");
+      if(page,limit != null){
+        current_page = page
+        page_max = limit
+        Fetch(current_page, page_max)
+      } else {
+          return
+      }
       console.log(page+ " and "+limit);
     } catch (err) {
       console.log("Issues with Parsing URL Parameter's - " + err);

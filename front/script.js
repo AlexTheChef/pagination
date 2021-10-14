@@ -34,6 +34,7 @@ function Fetch(page, limit) {
 previous.addEventListener('click', () => {
     if (current_page > 1) {
         current_page--
+        location.href = `?page=${current_page}&limit=${page_max}`;
         next.disabled = false
         Fetch(current_page, page_max)
     } else {
@@ -46,6 +47,8 @@ previous.addEventListener('click', () => {
 next.addEventListener('click', () => {
     if (hasMorePages) {
         current_page++
+        location.href = `?page=${current_page}&limit=${page_max}`;
+        console.log(page_max)
         previous.disabled = false
         Fetch(current_page, page_max)
     } else {
@@ -55,23 +58,22 @@ next.addEventListener('click', () => {
     currPage.textContent = current_page;
 })
 
-window.onload = function() {
+window.onload = function () {
     try {
-      let url_string = (window.location.href).toLowerCase();
-      let url = new URL(url_string);
-      let page = url.searchParams.get("page");
-      let limit = url.searchParams.get("limit");
-      if(page,limit != null){
-        current_page = page
-        page_max = limit
-        Fetch(current_page, page_max)
-      } else {
-          return
-      }
-      console.log(page+ " and "+limit);
+        let url_string = (window.location.href).toLowerCase();
+        let url = new URL(url_string);
+        let page = url.searchParams.get("page");
+        let limit = url.searchParams.get("limit");
+        if (page, limit != null) {
+            current_page = page
+            page_max = limit
+            Fetch(current_page, page_max)
+        } else {
+            return
+        }
     } catch (err) {
-      console.log("Issues with Parsing URL Parameter's - " + err);
-      console.log(url_string)
+        console.log("Issues with Parsing URL Parameter's - " + err);
+        console.log(url_string)
     }
 }
 
